@@ -10,12 +10,23 @@ cloudinary.config({
     api_secret: process.env.API_SECRET
 });
 
-export const razorpay = new Razorpay({
-    key_id: process.env.RAZORPAY_API_KEY,
-    key_secret: process.env.RAZORPAY_API_SECRET
-})
+console.log("Razorpay Key ID:", process.env.RAZORPAY_KEY_ID ? "Loaded ✅" : "Missing ❌");
+console.log("Razorpay Key Secret:", process.env.RAZORPAY_KEY_SECRET ? "Loaded ✅" : "Missing ❌");
 
-app.listen(process.env.PORT, () => {
+export const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET
+});
+
+const PORT = process.env.PORT || 10000;
+
+/*app.listen(process.env.PORT, () => {
     connectDb()
     console.log(`server is running on http://localhost:${process.env.PORT}`);
-})
+})*/
+
+
+app.listen(PORT, () => {
+  connectDb();
+  console.log(`✅ Server is running on port ${PORT}`);
+});
