@@ -9,7 +9,7 @@ export const getRazorpayKey = async (req, res, next) => {
     res.status(200).json({
         success: true,
         message: "razorpay key",
-        key: process.env.RAZORPAY_API_KEY
+        key: process.env.RAZORPAY_KEY_ID
     })
 }
 export const buySubscription = async (req, res, next) => {
@@ -65,7 +65,7 @@ export const verifySubscription = async (req, res, next) => {
         }
 
         const subscriptionId = user.subscription.id
-        const generateSignature = crypto.createHmac('sha256', process.env.RAZORPAY_API_SECRET).update(`${payment_id}|${subscriptionId}`)
+        const generateSignature = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET).update(`${payment_id}|${subscriptionId}`)
             .digest('hex')
         if (generateSignature !== razorpay_signature) {
             return next(createError(400, "payment not verified , please try again"))
